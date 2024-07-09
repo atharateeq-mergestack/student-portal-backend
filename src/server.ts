@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import { API_PREFIX } from './utils/constants';
+import userRoutes from './routes/userRoutes';
 require('dotenv').config();
 
 const app = express();
@@ -9,6 +10,8 @@ const port = process.env.PORT;
 
 app.use(bodyParser.json());
 
+// Routes
+app.use(`${API_PREFIX}/user`, userRoutes);
 
 // Connect to MongoDB
 mongoose.connect(`${process.env.MONGOURI}`)
