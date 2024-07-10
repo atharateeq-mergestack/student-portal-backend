@@ -10,10 +10,8 @@ const port = process.env.PORT;
 
 app.use(bodyParser.json());
 
-// Routes
 app.use(`${API_PREFIX}/user`, userRoutes);
 
-// Connect to MongoDB
 mongoose.connect(`${process.env.MONGOURI}`)
 .then(() => {
   console.log('Connected to MongoDB');

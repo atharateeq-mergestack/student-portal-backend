@@ -1,4 +1,3 @@
-// utils/constants.ts
 export const API_PREFIX = '/api';
 export const HTTP_STATUS = {
   OK: 200,
