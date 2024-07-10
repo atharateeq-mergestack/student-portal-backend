@@ -18,9 +18,7 @@ export const isAlphabetic = (value: string): boolean => {
     return regex.test(email);
   };
   
-  export const isStrongPassword = (password: string): boolean => {
-    console.log(password, "===<>ssdadasas");
-    
+  export const isStrongPassword = (password: string): boolean => {    
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return regex.test(password);
   };

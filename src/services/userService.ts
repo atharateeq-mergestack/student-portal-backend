@@ -1,4 +1,4 @@
-import User, { IUser } from '../models/User';
+import User, { IUser } from '@models/User';
 import bcrypt from 'bcryptjs';
 
 export const createUser = async (userData: IUser): Promise<IUser | null> => {

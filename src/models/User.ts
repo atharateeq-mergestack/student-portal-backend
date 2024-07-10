@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose';
-import bcrypt from 'bcryptjs';
-import * as validator from '../utils/helper/validationChecker';
-import { MESSAGES } from '../utils/message';
+import * as validator from '@utils/helper/validationChecker';
+import { hashingPassword } from '@utils/helper/hash';
+import { MESSAGES } from '@utils/message';
 
 export interface IUser extends Document {
   firstName: string;
@@ -44,10 +44,8 @@ const UserSchema: Schema = new Schema({
 UserSchema.pre<IUser>('save', async function(next) {
   const user = this;
   if (!user.isModified('password')) return next();
-
   try {
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(user.password, salt);
+    const hashedPassword = await hashingPassword(user.password)
     user.password = hashedPassword;
     return next();
   } catch (error) {
