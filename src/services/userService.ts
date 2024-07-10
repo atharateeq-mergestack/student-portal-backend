@@ -1,10 +1,10 @@
 import User, { IUser } from '../models/User';
+import bcrypt from 'bcryptjs';
 
 export const createUser = async (userData: IUser): Promise<IUser | null> => {
   const user = new User(userData);
   await user.save();
-  const newlyCreatedUser = getUserById(user.id);
-  return newlyCreatedUser
+  return getUserById(user.id);
 };
 
 export const getUsers = async (): Promise<IUser[]> => {
@@ -16,7 +16,8 @@ export const getUserById = async (userId: string): Promise<IUser | null> => {
 };
 
 export const updateUser = async (userId: string, userData: Partial<IUser>): Promise<IUser | null> => {
-  return await User.findByIdAndUpdate(userId, userData, { new: true, projection: { password: 0 } }).exec();
+  delete userData.password
+  return await User.findByIdAndUpdate(userId, userData, { new: true, runValidators: true, projection: { password: 0 } });
 };
 
 export const deleteUser = async (userId: string): Promise<void> => {
@@ -26,8 +27,6 @@ export const deleteUser = async (userId: string): Promise<void> => {
 export const findByEmail = async (email: string): Promise<IUser | null> => {
   return await User.findOne({ email }, { password: 0 }).exec();
 };
-
-import bcrypt from 'bcryptjs';
 
 export const comparePasswords = async (enteredPassword: string, hashedPassword: string): Promise<boolean> => {
   return await bcrypt.compare(enteredPassword, hashedPassword);

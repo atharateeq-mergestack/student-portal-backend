@@ -1,5 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import bcrypt from 'bcryptjs';
+import * as validator from '../utils/helper/validationChecker';
+import { MESSAGES } from '../utils/message';
 
 export interface IUser extends Document {
   firstName: string;
@@ -10,11 +12,32 @@ export interface IUser extends Document {
 }
 
 const UserSchema: Schema = new Schema({
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  userName: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  firstName: { 
+    type: String, 
+    required: [true, `First name${MESSAGES.IS_REQUIRED}`],
+    validate: [validator.isAlphabetic, `First name${MESSAGES.ONLY_ALPHABETIC}`]
+  },
+  lastName: { 
+    type: String, 
+    required: [true, `Last name${MESSAGES.IS_REQUIRED}`],
+    validate: [validator.isAlphabetic, `Last name${MESSAGES.ONLY_ALPHABETIC}`]
+  },
+  userName: { 
+    type: String, 
+    required: [true, `User name${MESSAGES.IS_REQUIRED}`],
+    validate: [validator.isAlphaNumeric, `User name${MESSAGES.ONLY_ALPHANUMERIC}`] 
+  },
+  email: { 
+    type: String, 
+    required: [true, `Email${MESSAGES.IS_REQUIRED}`], 
+    unique: true,
+    validate: [ validator.isValidEmail, MESSAGES.EMAIL_FORMAT_INVALID ]
+  },
+  password: { 
+    type: String, 
+    required: [true, `Password${MESSAGES.IS_REQUIRED}`], 
+    validate: [validator.isStrongPassword, MESSAGES.PASSWORD_COMPLEXITY]
+  },
 });
 
 // Hash password before saving
