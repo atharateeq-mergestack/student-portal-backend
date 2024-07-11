@@ -5,6 +5,8 @@ import userRoutes from '@routes/userRoutes';
 import { connectToDatabase } from '@db/connection';
 import authRoutes from './routes/authRoutes';
 import cors from 'cors';
+import subjectRoutes from '@routes/subjectRoutes';
+import resultRoutes from '@routes/resultRoutes';
 
 require('dotenv').config();
 
@@ -15,6 +17,8 @@ app.use(bodyParser.json());
 
 app.use(`${API_PREFIX}/user`, userRoutes);
 app.use(`${API_PREFIX}/auth`, authRoutes);
+app.use(`${API_PREFIX}/subject`, subjectRoutes);
+app.use(`${API_PREFIX}/result`, resultRoutes);
 
 connectToDatabase().then(() => {
   app.listen(port, () => {
