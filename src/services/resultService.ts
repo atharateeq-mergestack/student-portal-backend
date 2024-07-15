@@ -11,9 +11,7 @@ export const getResultById = async (resultId: string): Promise<IResult | null> =
   return await Result.findById(resultId).exec();
 };
 
-export const updateResult = async (resultId: string, resultData: Partial<IResult>): Promise<IResult | null> => {
-  console.log(resultId);
-  
+export const updateResult = async (resultId: string, resultData: Partial<IResult>): Promise<IResult | null> => {  
   return await Result.findByIdAndUpdate(resultId, resultData, { new: true, runValidators: true }).exec();
 };
 
