@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
 import mongoose from 'mongoose';
+
 import * as resultService from '@services/resultService';
 import { HTTP_STATUS } from '@utils/constants';
 import { MESSAGES } from '@utils/message';
-import { IOverallStats, IResult } from '@models/Result';
+import { IResult } from '@models/Result';
 import { sendResponse } from '@utils/Respons/response';
 import { AuthRequest } from 'types/auth-request';
 
@@ -70,15 +71,6 @@ export const deleteResult = async (req: Request, res: Response) => {
     await resultService.deleteResult(resultId);
     sendResponse(res, HTTP_STATUS.OK, MESSAGES.RECORD_DELETED_SUCCESSFULLY, {});
   } catch (error) {
-    sendResponse(res, HTTP_STATUS.INTERNAL_SERVER_ERROR, MESSAGES.INTERNAL_SERVER_ERROR);
-  }
-};
-
-export const getResultsStats = async (req: AuthRequest, res: Response) => {
-  try {
-    const results: IOverallStats = await resultService.getOverallStats();
-    sendResponse(res, HTTP_STATUS.OK, MESSAGES.RECORD_FETCHED_SUCCESSFULLY, results);
-  } catch (error) {    
     sendResponse(res, HTTP_STATUS.INTERNAL_SERVER_ERROR, MESSAGES.INTERNAL_SERVER_ERROR);
   }
 };

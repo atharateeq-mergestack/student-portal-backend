@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+
 import { findByEmail } from '@services/userService';
 import { HTTP_STATUS, SECRET_KEY, TOKEN_EXPIRES_IN } from '@utils/constants';
 import { MESSAGES } from '@utils/message';
@@ -23,7 +24,7 @@ router.post('/login', async (req: Request, res: Response) => {
   try {
     const user = await findByEmail(email);
     if (!user) {
-      return sendResponse(res, HTTP_STATUS.UNAUTHORIZED, MESSAGES.UNAUTHORIZED);
+      return sendResponse(res, HTTP_STATUS.NOT_FOUND, MESSAGES.NO_RECORD);
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {

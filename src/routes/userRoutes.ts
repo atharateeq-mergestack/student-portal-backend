@@ -1,6 +1,7 @@
 import express from 'express';
+
 import * as userController from '@controllers/userController';
-import { authenticateUser } from 'middleware/authMiddleware';
+import { authenticateUser } from '@middleware/authMiddleware';
 
 const userRoutes = express.Router();
 

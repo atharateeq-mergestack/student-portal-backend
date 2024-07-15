@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import { API_PREFIX } from '@utils/constants';
 import userRoutes from '@routes/userRoutes';
 import { connectToDatabase } from '@db/connection';
-import authRoutes from './routes/authRoutes';
+import authRoutes from '@routes/authRoutes';
 import cors from 'cors';
 import subjectRoutes from '@routes/subjectRoutes';
 import resultRoutes from '@routes/resultRoutes';

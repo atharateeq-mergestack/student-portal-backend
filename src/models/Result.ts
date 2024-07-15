@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose';
+
 import { ISubject } from '@models/Subject';
 import { IUser } from '@models/User';
 import { MESSAGES } from '@utils/message';
@@ -14,26 +15,6 @@ export interface IResult extends Document {
   updatedAt?: Date;
 }
 
-export interface IOverallStats {
-  topGrade: {
-    studentName: string;
-    subjectId: ISubject['_id'];
-    grade: string;
-  };
-  lowGrade: {
-    studentName: string;
-    subjectId: ISubject['_id'];
-    grade: string;
-  };
-  mostPassedSubject: {
-    subjectId: ISubject['_id'];
-    passCount: number;
-  };
-  mostFailedSubject: {
-    subjectId: ISubject['_id'];
-    failCount: number;
-  };
-}
 const ResultSchema: Schema = new Schema({
   studentName: {
     type: String,
