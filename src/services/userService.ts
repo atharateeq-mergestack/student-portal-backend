@@ -25,7 +25,7 @@ export const deleteUser = async (userId: string): Promise<void> => {
 };
 
 export const findByEmail = async (email: string): Promise<IUser | null> => {
-  return await User.findOne({ email }, { password: 0 }).exec();
+  return await User.findOne({ email }).exec();
 };
 
 export const comparePasswords = async (enteredPassword: string, hashedPassword: string): Promise<boolean> => {

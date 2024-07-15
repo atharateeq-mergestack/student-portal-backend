@@ -14,4 +14,7 @@ export const MESSAGES = {
   ONLY_ALPHANUMERIC: ' must contain only alphabetic and number characters',
   EMAIL_FORMAT_INVALID: 'Email format is invalid',
   PASSWORD_COMPLEXITY: 'Password must be at least 8 characters long, with at least one lowercase letter, one uppercase letter, one numeric digit, and one special character',
+  INCORRECT: 'Incorrect email or password.',
+  FORBIDDEN: 'Forbidden resources.',
+  SIGNUP_SUCCESSFULLY: 'Account created successfully.',
 };
