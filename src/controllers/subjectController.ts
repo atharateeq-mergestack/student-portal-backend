@@ -7,25 +7,22 @@ import { HTTP_STATUS } from '@utils/constants';
 import { MESSAGES } from '@utils/message';
 import { ISubject } from '@models/Subject';
 import { sendResponse } from '@utils/Respons/response';
+import handleErrorResponse from '@utils/Respons/handleErrorResponse';
+import { handleEmptyResponse } from '@utils/Respons/handleEmptyResponse';
 
 export const createSubject = async (req: Request, res: Response) => {
   try {
     const subject : ISubject | null = await subjectService.createSubject(req.body);
     sendResponse(res, HTTP_STATUS.CREATED, MESSAGES.RECORD_ADDED_SUCCESSFULLY, subject);
   } catch (error) {
-    if (error instanceof mongoose.Error.ValidationError) {
-      const errors = Object.values(error.errors).map((err) => err.message);
-      return sendResponse(res, HTTP_STATUS.BAD_REQUEST, errors);
-    } else {
-      return sendResponse(res, HTTP_STATUS.INTERNAL_SERVER_ERROR, MESSAGES.INTERNAL_SERVER_ERROR);
-    }
+    handleErrorResponse(res, error);
   }
 };
 
 export const getSubjects = async (req: Request, res: Response) => {
   try {    
     const subjects : ISubject[]= await subjectService.getSubjects();
-    sendResponse(res, HTTP_STATUS.OK, MESSAGES.RECORD_FETCHED_SUCCESSFULLY, subjects);
+    handleEmptyResponse(res, subjects);
   } catch (error) {
     sendResponse(res, HTTP_STATUS.INTERNAL_SERVER_ERROR, MESSAGES.INTERNAL_SERVER_ERROR);
   }
@@ -34,11 +31,7 @@ export const getSubjects = async (req: Request, res: Response) => {
 export const getSubjectById = async (req: Request, res: Response) => {
   try {
     const subject : ISubject | null = await subjectService.getSubjectById(req.params.subjectId);
-    if (subject) {
-      sendResponse(res, HTTP_STATUS.OK, MESSAGES.RECORD_FETCHED_SUCCESSFULLY, subject);
-    } else {
-      sendResponse(res, HTTP_STATUS.NOT_FOUND, MESSAGES.NO_RECORD);
-    }
+    handleEmptyResponse(res, subject);
   } catch (error) {
     sendResponse(res, HTTP_STATUS.INTERNAL_SERVER_ERROR, MESSAGES.INTERNAL_SERVER_ERROR);
   }
@@ -53,18 +46,9 @@ export const updateSubject = async (req: Request, res: Response) => {
       return sendResponse(res, HTTP_STATUS.BAD_REQUEST, MESSAGES.EMPTY_RECORD);
     }    
     const subject = await subjectService.updateSubject(subjectId, subjectData);
-    if (subject) {
-      sendResponse(res, HTTP_STATUS.OK, MESSAGES.RECORD_UPDATED_SUCCESSFULLY, subject);
-    } else {
-      sendResponse(res, HTTP_STATUS.NOT_FOUND, MESSAGES.NO_RECORD);
-    }
+    sendResponse(res, HTTP_STATUS.OK, MESSAGES.RECORD_UPDATED_SUCCESSFULLY, subject);
   } catch (error) {
-    if (error instanceof mongoose.Error.ValidationError) {
-      const errors = Object.values(error.errors).map((err) => err.message);
-      return sendResponse(res, HTTP_STATUS.BAD_REQUEST, errors);
-    } else {
-      return sendResponse(res, HTTP_STATUS.INTERNAL_SERVER_ERROR, MESSAGES.INTERNAL_SERVER_ERROR);
-    }
+    handleErrorResponse(res, error);
   }
 };
 

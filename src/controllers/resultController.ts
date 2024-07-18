@@ -7,6 +7,8 @@ import { MESSAGES } from '@utils/message';
 import { IResult } from '@models/Result';
 import { sendResponse } from '@utils/Respons/response';
 import { AuthRequest } from 'types/auth-request';
+import handleErrorResponse from '@utils/Respons/handleErrorResponse';
+import { handleEmptyResponse } from '@utils/Respons/handleEmptyResponse';
 
 export const createResult = async (req: AuthRequest, res: Response) => {
   try {
@@ -14,19 +16,14 @@ export const createResult = async (req: AuthRequest, res: Response) => {
     const result: IResult | null = await resultService.createResult(resultData);
     sendResponse(res, HTTP_STATUS.CREATED, MESSAGES.RECORD_ADDED_SUCCESSFULLY, result);
   } catch (error) {
-    if (error instanceof mongoose.Error.ValidationError) {
-      const errors = Object.values(error.errors).map((err) => err.message);
-      return sendResponse(res, HTTP_STATUS.BAD_REQUEST, errors);
-    } else {
-      return sendResponse(res, HTTP_STATUS.INTERNAL_SERVER_ERROR, MESSAGES.INTERNAL_SERVER_ERROR);
-    }
+    handleErrorResponse(res, error);
   }
 };
 
 export const getResults = async (req: AuthRequest, res: Response) => {
   try {
     const results: IResult[] = await resultService.getResults(req.userId);
-    sendResponse(res, HTTP_STATUS.OK, MESSAGES.RECORD_FETCHED_SUCCESSFULLY, results);
+    handleEmptyResponse(res, results);
   } catch (error) {
     sendResponse(res, HTTP_STATUS.INTERNAL_SERVER_ERROR, MESSAGES.INTERNAL_SERVER_ERROR);
   }
@@ -35,11 +32,7 @@ export const getResults = async (req: AuthRequest, res: Response) => {
 export const getResultById = async (req: AuthRequest, res: Response) => {
   try {
     const result: IResult | null = await resultService.getResultById(req.params.resultId);
-    if (result) {
-      sendResponse(res, HTTP_STATUS.OK, MESSAGES.RECORD_FETCHED_SUCCESSFULLY, result);
-    } else {
-      sendResponse(res, HTTP_STATUS.NOT_FOUND, MESSAGES.NO_RECORD);
-    }
+    handleEmptyResponse(res, result);
   } catch (error) {
     sendResponse(res, HTTP_STATUS.INTERNAL_SERVER_ERROR, MESSAGES.INTERNAL_SERVER_ERROR);
   }
@@ -50,18 +43,9 @@ export const updateResult = async (req: Request, res: Response) => {
     const resultData = req.body;
     const resultId = req.params.resultId;
     const result = await resultService.updateResult(resultId, resultData);
-    if (result) {
-      sendResponse(res, HTTP_STATUS.OK, MESSAGES.RECORD_UPDATED_SUCCESSFULLY, result);
-    } else {
-      sendResponse(res, HTTP_STATUS.NOT_FOUND, MESSAGES.NO_RECORD);
-    }
+    sendResponse(res, HTTP_STATUS.OK, MESSAGES.RECORD_UPDATED_SUCCESSFULLY, result);
   } catch (error) {
-    if (error instanceof mongoose.Error.ValidationError) {
-      const errors = Object.values(error.errors).map((err) => err.message);
-      return sendResponse(res, HTTP_STATUS.BAD_REQUEST, errors);
-    } else {
-      return sendResponse(res, HTTP_STATUS.INTERNAL_SERVER_ERROR, MESSAGES.INTERNAL_SERVER_ERROR);
-    }
+    handleErrorResponse(res, error);
   }
 };
 
