@@ -24,4 +24,3 @@ export const authenticateUser = (req: AuthRequest, res: Response, next: NextFunc
     return sendResponse(res, HTTP_STATUS.FORBIDDEN, MESSAGES.FORBIDDEN);
   }
 };
- 

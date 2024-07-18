@@ -12,4 +12,3 @@ subjectRoutes.put('/:subjectId', authenticateUser, subjectController.updateSubje
 subjectRoutes.delete('/:subjectId', authenticateUser, subjectController.deleteSubject);
 
 export default subjectRoutes;
-

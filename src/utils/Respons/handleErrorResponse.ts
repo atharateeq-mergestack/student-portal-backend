@@ -15,4 +15,3 @@ const handleErrorResponse = (res: Response, error: any) => {
 };
 
 export default handleErrorResponse;
- 

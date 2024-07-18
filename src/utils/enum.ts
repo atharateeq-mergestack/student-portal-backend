@@ -5,4 +5,3 @@ export enum Grade {
     B_MINUS = 'B-',
     F = 'F'
   }
-  

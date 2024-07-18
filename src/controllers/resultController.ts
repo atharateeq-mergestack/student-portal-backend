@@ -58,4 +58,3 @@ export const deleteResult = async (req: Request, res: Response) => {
     sendResponse(res, HTTP_STATUS.INTERNAL_SERVER_ERROR, MESSAGES.INTERNAL_SERVER_ERROR);
   }
 };
- 

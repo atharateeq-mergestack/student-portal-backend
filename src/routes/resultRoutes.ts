@@ -12,4 +12,3 @@ resultRoutes.put('/:resultId', authenticateUser, resultController.updateResult);
 resultRoutes.delete('/:resultId', authenticateUser, resultController.deleteResult);    
 
 export default resultRoutes;
-
