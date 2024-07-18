@@ -24,7 +24,7 @@ router.post('/login', async (req: Request, res: Response) => {
   try {
     const user = await findByEmail(email);
     if (!user) {
-      return sendResponse(res, HTTP_STATUS.NOT_FOUND, MESSAGES.NO_RECORD);
+      return sendResponse(res, HTTP_STATUS.NOT_FOUND, MESSAGES.ACCOUNT_NOT_EXISIT);
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {

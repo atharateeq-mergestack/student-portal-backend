@@ -8,11 +8,14 @@ export const createResult = async (resultData: IResult): Promise<IResult | null>
 };
 
 export const getResultById = async (resultId: string): Promise<IResult | null> => {
-  return await Result.findById(resultId).exec();
+  return await Result.findById(resultId)
+    .populate('subjectId', 'subjectName')
+    .exec();
 };
 
 export const updateResult = async (resultId: string, resultData: Partial<IResult>): Promise<IResult | null> => {  
-  return await Result.findByIdAndUpdate(resultId, resultData, { new: true, runValidators: true }).exec();
+  await Result.findByIdAndUpdate(resultId, resultData, { new: true, runValidators: true }).exec();
+  return getResultById(resultId);
 };
 
 export const deleteResult = async (resultId: string): Promise<void> => {
@@ -20,8 +23,8 @@ export const deleteResult = async (resultId: string): Promise<void> => {
 };
 
 export const getResults = async (userId: IUser['_id']): Promise<IResult[]> => {
-  const results = await Result.find()
+  const results = await Result.find({ createdBy: userId })
   .populate('subjectId', 'subjectName')
   .exec();
-  return results
+  return results;
 };
