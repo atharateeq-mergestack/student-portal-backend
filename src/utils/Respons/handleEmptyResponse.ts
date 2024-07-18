@@ -10,3 +10,4 @@ export const handleEmptyResponse = (res: Response, data: any) => {
     sendResponse(res, HTTP_STATUS.OK, MESSAGES.RECORD_FETCHED_SUCCESSFULLY, data);
   }
 };
+ 
