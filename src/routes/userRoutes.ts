@@ -1,6 +1,7 @@
 import express from 'express';
+
 import * as userController from '@controllers/userController';
-import { authenticateUser } from 'middleware/authMiddleware';
+import { authenticateUser } from '@middleware/authMiddleware';
 
 const userRoutes = express.Router();
 
@@ -11,4 +12,3 @@ userRoutes.put('/:id', authenticateUser, userController.updateUser);
 userRoutes.delete('/:id', authenticateUser, userController.deleteUser);
 
 export default userRoutes;
-

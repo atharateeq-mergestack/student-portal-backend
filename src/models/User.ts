@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose';
+
 import * as validator from '@utils/helper/validationChecker';
 import { hashingPassword } from '@utils/helper/hash';
 import { MESSAGES } from '@utils/message';

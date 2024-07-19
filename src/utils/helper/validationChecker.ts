@@ -9,9 +9,9 @@ export const isAlphabetic = (value: string): boolean => {
   };
   
   export const isAlphaNumericWithSpecial = (value: string): boolean => {
-    const regex = /^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\-]+$/;
+    const regex = /^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\-\s]*$/;
     return regex.test(value);
-  };
+  };  
   
   export const isValidEmail = (email: string): boolean => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -22,4 +22,3 @@ export const isAlphabetic = (value: string): boolean => {
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return regex.test(password);
   };
-  

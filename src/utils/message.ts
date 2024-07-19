@@ -17,4 +17,8 @@ export const MESSAGES = {
   INCORRECT: 'Incorrect email or password.',
   FORBIDDEN: 'Forbidden resources.',
   SIGNUP_SUCCESSFULLY: 'Account created successfully.',
+  MARKS_RANGE: 'Marks must be 0 to 100.',
+  INVALID_GRADE: 'Grade valuse must lies in A+, A-, B+, B- and F.',
+  INVALID_ENTRY: ' has invalid entry.',
+  ACCOUNT_NOT_EXISIT: 'Account does not exist.',
 };
