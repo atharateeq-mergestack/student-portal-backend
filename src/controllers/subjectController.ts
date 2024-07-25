@@ -12,6 +12,12 @@ import { handleEmptyResponse } from '@utils/Respons/handleEmptyResponse';
 
 export const createSubject = async (req: Request, res: Response) => {
   try {
+    const { subjectName } = req.body;
+    // Check if subject with the same name already exists
+    const existingSubject: ISubject | null = await subjectService.getSubjectByName(subjectName);
+    if (existingSubject) {
+      return sendResponse(res, HTTP_STATUS.BAD_REQUEST, `Subject name ${MESSAGES.ALREADY_EXISTS}`);
+    }
     const subject : ISubject | null = await subjectService.createSubject(req.body);
     sendResponse(res, HTTP_STATUS.CREATED, MESSAGES.RECORD_ADDED_SUCCESSFULLY, subject);
   } catch (error) {

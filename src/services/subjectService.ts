@@ -21,3 +21,7 @@ export const updateSubject = async (subjectId: string, subjectData: Partial<ISub
 export const deleteSubject = async (subjectId: string): Promise<void> => {
   await Subject.findByIdAndDelete(subjectId).exec();
 };
+
+export const getSubjectByName = async (subjectName: string): Promise<ISubject | null> => {
+  return await Subject.findOne({subjectName}).exec();
+};

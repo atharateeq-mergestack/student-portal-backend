@@ -14,6 +14,7 @@ const SubjectSchema: Schema = new Schema({
   subjectName: { 
     type: String, 
     required: [true, `Subject name${MESSAGES.IS_REQUIRED}`],
+    unique: true,
     validate: [validator.isAlphaNumeric, `Subject name${MESSAGES.ONLY_ALPHABETIC}`]
   },
   subjectDescription: { 

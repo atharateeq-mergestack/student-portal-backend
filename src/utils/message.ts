@@ -22,4 +22,5 @@ export const MESSAGES = {
   INVALID_ENTRY: ' has invalid entry.',
   ACCOUNT_NOT_EXISIT: 'Account does not exist.',
   USER_USERNAME_EXISTS: 'User name already exists',
+  ALREADY_EXISTS: ' already exists',
 };
