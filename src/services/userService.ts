@@ -32,3 +32,12 @@ export const findByEmail = async (email: string): Promise<IUser | null> => {
 export const comparePasswords = async (enteredPassword: string, hashedPassword: string): Promise<boolean> => {
   return await bcrypt.compare(enteredPassword, hashedPassword);
 };
+
+export const findByEmailOrUsername = async (email: string, username: string): Promise<IUser[] | null> => {
+  return await User.find({
+    $or: [
+      { email: email },
+      { userName: username}
+    ]
+  }).exec();
+};
