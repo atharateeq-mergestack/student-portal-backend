@@ -4,7 +4,7 @@ export const isAlphabetic = (value: string): boolean => {
   };
   
   export const isAlphaNumeric = (value: string): boolean => {
-    const regex = /^[a-zA-Z0-9]+$/;
+    const regex = /^[a-zA-Z0-9\s]+$/;
     return regex.test(value);
   };
   

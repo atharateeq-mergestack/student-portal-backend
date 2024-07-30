@@ -26,6 +26,7 @@ const UserSchema: Schema = new Schema({
   userName: { 
     type: String, 
     required: [true, `User name${MESSAGES.IS_REQUIRED}`],
+    unique: true,
     validate: [validator.isAlphaNumeric, `User name${MESSAGES.ONLY_ALPHANUMERIC}`] 
   },
   email: { 

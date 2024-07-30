@@ -13,10 +13,20 @@ import handleErrorResponse from '@utils/Respons/handleErrorResponse';
 
 export const createUser = async (req: Request, res: Response) => {
   try {
-    // Check if user with the same email already exists
-    const existingUser : IUser | null = await userService.findByEmail(req.body.email);
-    if (existingUser) {
-      return sendResponse(res, HTTP_STATUS.BAD_REQUEST, MESSAGES.USER_EMAIL_EXISTS);
+    const {email, userName} = req.body;
+    // Check if user with the same email or username already exists
+    const existingUsers: IUser[] | null = await userService.findByEmailOrUsername(email, userName);
+    const messages : Array<string>= [];
+    if (existingUsers && existingUsers.length > 0) {
+      existingUsers.forEach(existingUser => {
+        if (existingUser.userName === userName) {
+          messages.push(MESSAGES.USER_USERNAME_EXISTS);
+        }
+        if (existingUser.email === email) {
+          messages.push(MESSAGES.USER_EMAIL_EXISTS);
+        }
+      });
+      return sendResponse(res, HTTP_STATUS.BAD_REQUEST, messages);
     }
     // Create user
     const user : IUser | null = await userService.createUser(req.body);
