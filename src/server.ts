@@ -9,6 +9,7 @@ import subjectRoutes from '@routes/subjectRoutes';
 import resultRoutes from '@routes/resultRoutes';
 import categoryRoutes from '@routes/categoryRoutes';
 import productRoutes from '@routes/productRoutes';
+import cartRoutes from '@routes/cartRoutes';
 
 require('dotenv').config();
 
@@ -23,6 +24,7 @@ app.use(`${API_PREFIX}/subject`, subjectRoutes);
 app.use(`${API_PREFIX}/result`, resultRoutes);
 app.use(`${API_PREFIX}/category`, categoryRoutes);
 app.use(`${API_PREFIX}/product`, productRoutes);
+app.use(`${API_PREFIX}/cart`, cartRoutes);
 
 connectToDatabase().then(() => {
   app.listen(port, () => {
