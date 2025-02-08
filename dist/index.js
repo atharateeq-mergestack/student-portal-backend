@@ -36,3 +36,4 @@ app.use(`/`, (req, res) => {
         console.log(`Server running at http://localhost:${port}`);
     });
 });
+exports.default = app;
