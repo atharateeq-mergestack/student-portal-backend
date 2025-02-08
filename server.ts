@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Response } from 'express';
 import bodyParser from 'body-parser';
 import "module-alias/register";
 
@@ -29,6 +29,15 @@ app.use(`${API_PREFIX}/product`, productRoutes);
 app.use(`${API_PREFIX}/cart`, cartRoutes);
 app.use(`/`, (req, res) => {
   res.send('Welcome to the API');
+})
+
+// Add this error handling middleware before the last app.use('/')
+app.use((req, res) => {
+  try {
+    res.status(404).send("Not Found")
+  } catch (error) {
+    res.status(500).send(error)
+  }
 })
 
 if (process.env.NODE_ENV !== "production") {
