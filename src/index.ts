@@ -1,6 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { API_PREFIX } from '@utils/constants';
+import "module-alias/register";
+
+import { API_PREFIX } from './utils/constants';
 import userRoutes from '@routes/userRoutes';
 import { connectToDatabase } from '@db/connection';
 import authRoutes from '@routes/authRoutes';
@@ -10,7 +12,6 @@ import resultRoutes from '@routes/resultRoutes';
 import categoryRoutes from '@routes/categoryRoutes';
 import productRoutes from '@routes/productRoutes';
 import cartRoutes from '@routes/cartRoutes';
-import orderRoutes from '@routes/orderRoutes';
 
 require('dotenv').config();
 
@@ -26,7 +27,6 @@ app.use(`${API_PREFIX}/result`, resultRoutes);
 app.use(`${API_PREFIX}/category`, categoryRoutes);
 app.use(`${API_PREFIX}/product`, productRoutes);
 app.use(`${API_PREFIX}/cart`, cartRoutes);
-app.use(`${API_PREFIX}/order`, orderRoutes);
 app.use(`/`, (req, res) => {
   res.send('Welcome to the API');
 })

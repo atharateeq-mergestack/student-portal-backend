@@ -18,7 +18,6 @@
 /bower_components/
 
 # Compiled output
-/dist/
 /build/
 
 # OS generated files
