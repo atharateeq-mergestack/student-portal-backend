@@ -11,9 +11,7 @@ import { handleEmptyResponse } from '@utils/Respons/handleEmptyResponse';
 import { AuthRequest } from 'types/auth-request';
 
 export const createCart = async (req: AuthRequest, res: Response) => {
-  try {
-    console.log(req.body);
-    
+  try {      
     const cart: ICart | null = await cartService.createCart(req.userId, req.body.addInCart, req.body.productIdToDelete);
     sendResponse(res, HTTP_STATUS.CREATED, MESSAGES.RECORD_ADDED_SUCCESSFULLY, cart);
   } catch (error) {
@@ -32,7 +30,9 @@ export const getCarts = async (req: AuthRequest, res: Response) => {
 
 export const getCartsOfUser = async (req: AuthRequest, res: Response) => {
   try {
-    const carts: ICart[] = await cartService.getCartForUser(req.userId);
+    const carts: ICart[] = await cartService.getCartForUser(req.userId);  
+    console.log(carts);
+      
     handleEmptyResponse(res, carts);
   } catch (error) {
     sendResponse(res, HTTP_STATUS.INTERNAL_SERVER_ERROR, MESSAGES.INTERNAL_SERVER_ERROR);

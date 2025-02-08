@@ -7,7 +7,7 @@ const cartRoutes = express.Router();
 
 cartRoutes.post('/', authenticateUser, cartController.createCart);
 cartRoutes.get('/', authenticateUser, cartController.getCarts);
-cartRoutes.get('user', authenticateUser, cartController.getCartsOfUser);
+cartRoutes.get('/user', authenticateUser, cartController.getCartsOfUser);
 cartRoutes.get('/:cartId', authenticateUser, cartController.getCartById);
 cartRoutes.get('/product/:productId', authenticateUser, cartController.getCartByProductId);
 cartRoutes.put('/:cartId', authenticateUser, cartController.updateCart);

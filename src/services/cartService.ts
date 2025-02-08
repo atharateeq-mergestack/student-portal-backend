@@ -84,3 +84,8 @@ export const updateCart = async (cartId: string, cartData: Partial<ICart>): Prom
 export const deleteCart = async (cartId: string): Promise<void> => {
   await Cart.findByIdAndDelete(cartId).exec();
 };
+
+// Delete cart by user ID
+export const deleteCartByUserId = async (userId: IUser['_id']): Promise<void> => {
+  await Cart.findOneAndDelete({userId}).exec();
+};
