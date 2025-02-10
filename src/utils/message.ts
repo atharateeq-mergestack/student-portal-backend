@@ -7,7 +7,7 @@ export const MESSAGES = {
   LOGIN: 'Login successfully.',
   UNAUTHORIZED: 'Unauthorized resources.',
   INTERNAL_SERVER_ERROR: 'Internal server error.',
-  USER_EMAIL_EXISTS: 'User with this email already exists',
+  USER_EMAIL_EXISTS: 'Email already exists',
   EMPTY_RECORD: 'Record to be update must not be empty.',
   IS_REQUIRED: ' is required',
   ONLY_ALPHABETIC: ' must contain only alphabetic characters',
@@ -21,4 +21,6 @@ export const MESSAGES = {
   INVALID_GRADE: 'Grade valuse must lies in A+, A-, B+, B- and F.',
   INVALID_ENTRY: ' has invalid entry.',
   ACCOUNT_NOT_EXISIT: 'Account does not exist.',
+  USER_USERNAME_EXISTS: 'User name already exists',
+  ALREADY_EXISTS: ' already exists',
 };
